@@ -10,7 +10,15 @@ var database = require('./database.js');
 database.connection.connect(function(err) {
   console.log("Database is now connected!");
 });
-console.log(database.tablename);
+
+database.query("SELECT * FROM users;", function(errors, results, fields){
+    var results = results;
+    if(errors) throw errors;
+    else{
+        console.log(results);
+    }
+});
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -53,7 +61,6 @@ app.post('/login', function(req,res){
             res.status(403).send('Username/Password is invalid\n');
           }else{
             if (password === results[0].password){
-              //req.session.auth = {stu_id : result[0].stu_id};
               var username = JSON.stringify(results[0].username);
               res.writeHead(200, {'Content-Type':'application/json'});
               res.write(user_name);
@@ -92,8 +99,12 @@ app.post('/signup', function(req,res){
         res.send("Passwords did not match")
     }
 
-    
+});
 
+app.get('/dashboard', function(req,res){
+    var user_name = req.query.user;
+    console.log(user_name);
+    res.render('dashboard.ejs');
 });
 
 const server = app.listen(port, url, e => {
