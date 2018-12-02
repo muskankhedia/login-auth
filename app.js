@@ -12,16 +12,15 @@ database.connection.connect(function(err) {
     else{
         console.log("Database is now connected!");
     }
-  
 });
 
-// database.connection.query("SELECT * FROM users;", function(errors, results, fields){
-//     var results = results;
-//     if(errors) throw errors;
-//     else{
-//         console.log(results);
-//     }
-// });
+database.connection.query("SELECT * FROM users;", function(errors, results, fields){
+    var results = results;
+    if(errors) throw errors;
+    else{
+        console.log(results);
+    }
+});
 
 
 
@@ -47,21 +46,24 @@ app.get('/',function(req,res){
     res.render('loginSignup.ejs');
 });
 
+app.post('/',function(req,res){
+    res.render('loginSignup.ejs');
+})
+
 
 app.post('/login', function(req,res){
     // console.log("req",req.body);
     var user_name=req.body.user;
     var password=req.body.password;
-    console.log("User name = "+user_name+", password is "+password);
+    console.log("User name ="+user_name+", password is "+password);
 
-    database.connection.query('SELECT * FROM' + database.tablename + 'WHERE name = "' + user_name + '";', function(errors,results, fields){
+    database.connection.query('SELECT * FROM ' + database.tablename + 'WHERE name = "' + user_name + '";', function(errors,results, fields){
         var stream = results;
         console.log(stream);
         if (errors){
             throw (errors);
         //   res.status(500).send(err.toString());
         }else{
-          console.log()
           if (results.length === 0){
             res.status(403).send('Username/Password is invalid\n');
           }else{
@@ -76,8 +78,6 @@ app.post('/login', function(req,res){
           }
         } 
     });
-    
-
 });
 
 app.post('/signup', function(req,res){
@@ -85,16 +85,17 @@ app.post('/signup', function(req,res){
     var password = req.body.password;
     var emailid = req.body.emailid;
     var cnfpass = req.body.cnfpass;
-    console.log("User name =" + user_name + ", password is" +password);
+    console.log("User name =" + user_name + ", password is " +password);
 
     if(password == cnfpass){
-        database.connection.query('INSERT INTO'+ database.tablename + '(name, email, password) VALUES ("' + user_name + '" , "' + emailid + '" , "' + password +'");', function(errors, results, fields){
+        database.connection.query('INSERT INTO '+ database.tablename + '(name, email, password) VALUES ("' + user_name + '" , "' + emailid + '" , "' + password +'");', function(errors, results, fields){
             var stream = results;
             console.log(stream);
             if(errors){
                 throw (errors);
             }else{
-                res.send("done")
+                res.render("loginSignup.ejs");
+                res.send("done");
             }
             
         });
