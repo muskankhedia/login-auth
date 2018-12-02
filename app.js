@@ -8,16 +8,21 @@ var bodyParser = require('body-parser');
 var database = require('./database.js');
 
 database.connection.connect(function(err) {
-  console.log("Database is now connected!");
+    if (err) throw (err);
+    else{
+        console.log("Database is now connected!");
+    }
+  
 });
 
-database.query("SELECT * FROM users;", function(errors, results, fields){
-    var results = results;
-    if(errors) throw errors;
-    else{
-        console.log(results);
-    }
-});
+// database.connection.query("SELECT * FROM users;", function(errors, results, fields){
+//     var results = results;
+//     if(errors) throw errors;
+//     else{
+//         console.log(results);
+//     }
+// });
+
 
 
 app.use(bodyParser.json());
