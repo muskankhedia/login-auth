@@ -57,7 +57,7 @@ app.post('/login', function(req,res){
     var password=req.body.password;
     console.log("User name ="+user_name+", password is "+password);
 
-    database.connection.query('SELECT * FROM ' + database.tablename + 'WHERE name = "' + user_name + '";', function(errors,results, fields){
+    database.connection.query('SELECT * FROM '+ database.tablename +' WHERE name = "'+user_name+'";', function(errors,results, fields){
         var stream = results;
         console.log(stream);
         if (errors){
@@ -65,15 +65,14 @@ app.post('/login', function(req,res){
         //   res.status(500).send(err.toString());
         }else{
           if (results.length === 0){
-            res.status(403).send('Username/Password is invalid\n');
+            res.send('Username/Password is invalid\n');
           }else{
             if (password === results[0].password){
               var username = JSON.stringify(results[0].username);
-              res.writeHead(200, {'Content-Type':'application/json'});
-              res.write(user_name);
               res.send("done");
+              
             }else{
-              res.status(403).send('Username/Password is wrong\n');
+              res.send('Username/Password is wrong\n');
             }
           }
         } 
@@ -83,23 +82,18 @@ app.post('/login', function(req,res){
 app.post('/signup', function(req,res){
     var user_name = req.body.user;
     var password = req.body.password;
-    var emailid = req.body.emailid;
+    var emailid = req.body.email;
     var cnfpass = req.body.cnfpass;
     console.log("User name =" + user_name + ", password is " +password);
 
     if(password == cnfpass){
         database.connection.query('INSERT INTO '+ database.tablename + '(name, email, password) VALUES ("' + user_name + '" , "' + emailid + '" , "' + password +'");', function(errors, results, fields){
-            var stream = results;
-            console.log(stream);
             if(errors){
                 throw (errors);
             }else{
-                res.render("loginSignup.ejs");
                 res.send("done");
-            }
-            
+            }   
         });
-        // res.render('loginSignup.ejs')
     }
     else{
         res.send("Passwords did not match")

@@ -14,7 +14,7 @@
 	<link href="./css/style.css" rel='stylesheet' type='text/css' media="all" /><!--stylesheet-->
 </head>
 <body>
-<h1> Sign in and Sign up  form</h1>
+<h1> Login Signup form</h1>
 <div class="form-w3ls">
 	<div class="form-head-w3l">
 		<h2>s</h2>
@@ -43,7 +43,7 @@
 			<form action="#" method="post">
 				
 				<p class="header">User Name</p>
-				<input type="text" name="user" id ="user1" placeholder="Your Full Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Full Name';}" required="required">
+				<input type="text" name="user" id ="user1" placeholder="UserName" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Full Name';}" required="required">
 				
 				<p class="header">Email Address</p>
 				<input type="email" name="email" id= "emailid1" placeholder="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="required">
@@ -74,12 +74,10 @@
           $.post("http://localhost:3000/login",{user: user,password: pass}, function(data){
             if(data==='done')
               {
-                $.get("http://localhost:3000/dashboard",{user: user},function(res){
-                  console.log(reached);
-                });
+                alert("Login Successful");
               }
             else{
-              alert(data);
+              alert("Invalid Username or Password");
             }
           });
         });
@@ -92,8 +90,7 @@
           $.post("http://localhost:3000/signup",{user:user, password:pass, email:email, cnfpass:cnfpass}, function(data){
             if(data ==='done')
             {
-              // alert("Signup Successful");
-              $.get("http://localhost:3000")
+              alert("Signup Successful");
             }
             else{
               alert(data);
