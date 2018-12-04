@@ -3,19 +3,35 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        var user = req.body.user;
     </script>
 </head>
 
 <body>
-    <h1>
-        Welcome to Our Website
+    <div style="height:60px; background-color: blue;margin:-10px; ">
+        <button type="button" class="btn btn-danger" id="logout" onClick = "logout()" style="float: right;margin-top: 15px;margin-right:40px;">
+            Logout
+        </button>
 
-    </h1>
+    </div>
+
+    <div>
+        <h1>
+            Welcome to Dashboard
+        </h1>
+    </div>
 </body>
+
+<script>
+    function logout(){
+        window.location = '/'
+    }
+</script>
 </html>
