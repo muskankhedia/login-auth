@@ -14,13 +14,13 @@ database.connection.connect(function(err) {
     }
 });
 
-database.connection.query("SELECT * FROM users;", function(errors, results, fields){
-    var results = results;
-    if(errors) throw errors;
-    else{
-        console.log(results);
-    }
-});
+// database.connection.query("SELECT * FROM users;", function(errors, results, fields){
+//     var results = results;
+//     if(errors) throw errors;
+//     else{
+//         console.log(results);
+//     }
+// });
 
 
 
@@ -55,11 +55,11 @@ app.post('/login', function(req,res){
     // console.log("req",req.body);
     var user_name=req.body.user;
     var password=req.body.password;
-    console.log("User name ="+user_name+", password is "+password);
+    // console.log("User name ="+user_name+", password is "+password);
 
     database.connection.query('SELECT * FROM '+ database.tablename +' WHERE name = "'+user_name+'";', function(errors,results, fields){
-        var stream = results;
-        console.log(stream);
+        // var stream = results;
+        // console.log(stream);
         if (errors){
             throw (errors);
         //   res.status(500).send(err.toString());
@@ -84,7 +84,7 @@ app.post('/signup', function(req,res){
     var password = req.body.password;
     var emailid = req.body.email;
     var cnfpass = req.body.cnfpass;
-    console.log("User name =" + user_name + ", password is " +password);
+    // console.log("User name =" + user_name + ", password is " +password);
 
     if(password == cnfpass){
         database.connection.query('INSERT INTO '+ database.tablename + '(name, email, password) VALUES ("' + user_name + '" , "' + emailid + '" , "' + password +'");', function(errors, results, fields){
@@ -102,8 +102,6 @@ app.post('/signup', function(req,res){
 });
 
 app.get('/dashboard', function(req,res){
-    var user_name = req.query.user;
-    console.log(user_name);
     res.render('dashboard.ejs');
 });
 
